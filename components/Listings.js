@@ -64,8 +64,6 @@ const reducer = (state, action) => {
     }
 }
 
-const BlueSpan = ({ txt }) => <span className="text-primary">{txt}</span>;
-
 const Listings = ({ dataEndpoint, keyword, location }) => {
     // TODO
     // This component should make a request to the api endpoint (props.dataEndpoint)
