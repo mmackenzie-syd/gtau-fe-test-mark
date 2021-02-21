@@ -92,17 +92,24 @@ const Listings = ({ dataEndpoint, keyword, location }) => {
         <div className="listings">
             { loading && <div>...Loading</div> }
             { !error && !loading &&
-                <>
-                    <div className="listings__header">
+                ((data.length > 0)
+                    ? <>
+                        <div className="listings__header">
+                            <h2>Search Results</h2>
+                            <p>
+                                <span>{data.length} results</span> for <span>{keyword}</span> in <span>{location}</span>
+                            </p>
+                        </div>
+                        <div className="listings__grid">
+                            {data.map((item, index) => <Listing key={index}{...item} />)}
+                        </div>
+                    </>
+                    : <div className="listings__header">
                         <h2>Search Results</h2>
                         <p>
-                            <span>{data.length} results</span> for <span>{keyword}</span> in <span>{location}</span>
+                            No results found for <span>{keyword}</span> in <span>{location}</span>
                         </p>
-                    </div>
-                    <div className="listings__grid">
-                        {data.map((item, index) =><Listing key={index }{ ...item } />)}
-                    </div>
-                </>
+                    </div>)
             }
             { error &&
                 <div className="error">
