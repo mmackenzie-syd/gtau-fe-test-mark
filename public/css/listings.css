@@ -106,6 +106,21 @@ footer {
     object-position: 50% 50%;
 }
 
+/* Error */
+.error {
+    position: absolute;
+    left: 40%;
+    top: 30%;
+}
+.error__msg {
+    font-size: var(--font-size-default);
+    font-weight: bold;
+    color: var(--color-error-dark);
+    border: 2px solid var(--color-error-dark);
+    padding: var(--spacing) var(--spacing-x2);
+    background-color: var(--color-error-light);
+}
+
 @media (min-width: 800px) {
     /* tablet */
     .listings__grid {

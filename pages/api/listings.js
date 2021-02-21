@@ -52,7 +52,7 @@ const data = [
 ];
 
 export default (req, res) => {
-    const remove = 6; //Math.floor(Math.random() * Math.floor(6));
+    const remove = Math.floor(Math.random() * Math.floor(6));
     const response = shuffle(data, { copy: true }).splice(0, remove);
 
     res.statusCode = 200;

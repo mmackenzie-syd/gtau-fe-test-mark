@@ -57,7 +57,7 @@ const reducer = (state, action) => {
             return {
                 loading: false,
                 data: [],
-                error: 'failed to fetch data'
+                error: action.payload || 'failed to fetch data'
             }
         default:
             return state;
@@ -76,37 +76,47 @@ const Listings = ({ dataEndpoint, keyword, location }) => {
         });
     useEffect(() => {
         fetch(dataEndpoint)
-            .then(response => {
-                if (response.status !== 200) {
-                    dispatch({ type: 'ERROR'})
-                    return;
+            .then(function(response) {
+                if (!response.ok) {
+                    throw Error(response.statusText);
                 }
+                return response;
+            }).then(function(response) {
                 response.json().then((data) => {
                     dispatch({ type: 'SUCCESS', payload: data});
                 });
-            })
-            .catch(error => {
-                dispatch({ type: 'ERROR'})
-            })
+            }).catch(function(error) {
+                dispatch({ type: 'ERROR', payload: error.toString() })
+            });
     }, []);
     const { loading, data, error } = state;
     return (
         <div className="listings">
-            <div className="listings__header">
-                <h2>Search Results</h2>
-                {
-                    !loading &&
-                    <p>
-                        <span>{data.length} results</span> for <span>{keyword}</span> in <span>{location}</span>
-                    </p>
-                }
-            </div>
-            <div className="listings__grid">
-                {
-                    (data.length > 0) &&
-                        data.map((item, index) =><Listing key={index }{ ...item } />)
-                }
-            </div>
+            { loading &&
+                <div>
+                    ...Loading
+                </div>
+            }
+            { !error && !loading &&
+                <>
+                    <div className="listings__header">
+                        <h2>Search Results</h2>
+                        <p>
+                            <span>{data.length} results</span> for <span>{keyword}</span> in <span>{location}</span>
+                        </p>
+                    </div>
+                    <div className="listings__grid">
+                        { (data.length > 0) &&
+                            data.map((item, index) =><Listing key={index }{ ...item } />)
+                        }
+                    </div>
+                </>
+            }
+            { error &&
+                <div className="error">
+                    <div className="error__msg">{error}</div>
+                </div>
+            }
         </div>
     );
 };
