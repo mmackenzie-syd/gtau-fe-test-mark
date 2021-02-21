@@ -95,7 +95,7 @@ footer {
 }
 
 .listing__img-wrap {
-    height: 200px;
+    height: 220px;
     overflow: hidden;
     margin: var(--spacing) 0;
 }
@@ -121,10 +121,20 @@ footer {
     background-color: var(--color-error-light);
 }
 
+@media (min-width: 600px) {
+    /* added this extra media break for fitting images better */
+    .listing__img-wrap {
+        height: 320px;
+    }
+}
+
 @media (min-width: 800px) {
     /* tablet */
     .listings__grid {
         grid-template-columns: 1fr 1fr;
+    }
+    .listing__img-wrap {
+        height: 270px;
     }
 }
 
@@ -132,5 +142,8 @@ footer {
     /* desktop */
     .listings__grid {
         grid-template-columns: 1fr 1fr 1fr;
+    }
+    .listing__img-wrap {
+        height: 200px;
     }
 }
