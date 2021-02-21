@@ -90,11 +90,7 @@ const Listings = ({ dataEndpoint, keyword, location }) => {
     const { loading, data, error } = state;
     return (
         <div className="listings">
-            { loading &&
-                <div>
-                    ...Loading
-                </div>
-            }
+            { loading && <div>...Loading</div> }
             { !error && !loading &&
                 <>
                     <div className="listings__header">
@@ -104,9 +100,7 @@ const Listings = ({ dataEndpoint, keyword, location }) => {
                         </p>
                     </div>
                     <div className="listings__grid">
-                        { (data.length > 0) &&
-                            data.map((item, index) =><Listing key={index }{ ...item } />)
-                        }
+                        {data.map((item, index) =><Listing key={index }{ ...item } />)}
                     </div>
                 </>
             }
